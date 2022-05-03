@@ -10,26 +10,87 @@ describe('Park', function() {
   beforeEach(function () {
     park = new Park("Jurassic Park", 10);
     dinosaur = new Dinosaur('t-rex', 'carnivore', 50);
+    dinosaur2 = new Dinosaur('Triceratops', 'herbivore', 15)
+    dinosaur3 = new Dinosaur('Pterodactyl', 'omnivore', 10)
   })
 
-  it('should have a name');
+  it('should have a name', function () {
+    const actual = park.name;
+    assert.strictEqual(actual, 'Jurassic Park')
+  });
 
-  it('should have a ticket price');
+  it('should have a ticket price', function () {
+    const actual = park.ticket_price;
+    assert.strictEqual(actual, 10)
+  });
 
-  it('should have a collection of dinosaurs');
+  it('should have a collection of dinosaurs', function () {
+    const actual = park.dino_collection;
+    assert.deepStrictEqual(actual, [])
+  });
 
-  it('should be able to add a dinosaur to its collection');
+  it('should be able to add a dinosaur to its collection', function () {
+    park.add_dino(dinosaur);
+    const actual = park.dino_collection;
+    assert.deepStrictEqual(actual, [dinosaur])
+  });
 
-  it('should be able to remove a dinosaur from its collection');
+  it('should be able to remove a dinosaur from its collection', function () {
+    park.add_dino(dinosaur);
+    park.add_dino(dinosaur2);
+    park.add_dino(dinosaur3);
+    const actual = park.dino_collection;
+    assert.deepStrictEqual(actual, [dinosaur, dinosaur2, dinosaur3]);
+    park.remove_dino(dinosaur2);
+    const next_actual = park.dino_collection;
+    assert.deepStrictEqual(next_actual, [dinosaur, dinosaur3])
+  });
 
-  it('should be able to find the dinosaur that attracts the most visitors');
+  it('should be able to find the dinosaur that attracts the most visitors', function () {
+    park.add_dino(dinosaur);
+    park.add_dino(dinosaur2);
+    park.add_dino(dinosaur3);
+    
+    const actual = park.most_popular_dino()
+    assert.deepStrictEqual(actual, dinosaur)
+    
+  });
 
-  it('should be able to find all dinosaurs of a particular species');
+  it('should be able to find all dinosaurs of a particular species', function () {
+    park.add_dino(dinosaur)
+    park.add_dino(dinosaur)
+    park.add_dino(dinosaur2)
+    park.add_dino(dinosaur3)
 
-  it('should be able to calculate the total number of visitors per day');
+    const actual = park.find_dino_by_species("t-rex");
+    assert.deepStrictEqual(actual, [dinosaur, dinosaur])
+  });
 
-  it('should be able to calculate the total number of visitors per year');
+  it('should be able to calculate the total number of visitors per day', function () {
+    park.add_dino(dinosaur)
+    park.add_dino(dinosaur2)
+    park.add_dino(dinosaur3)
 
-  it('should be able to calculate total revenue for one year');
+    const actual = park.total_visitors_per_day()
+    assert.strictEqual(actual, 75)
+  });
+
+  it('should be able to calculate the total number of visitors per year', function () {
+    park.add_dino(dinosaur)
+    park.add_dino(dinosaur2)
+    park.add_dino(dinosaur3)
+
+    const actual = park.total_visitors_per_year()
+    assert.strictEqual(actual, 27375)
+  });
+
+  it('should be able to calculate total revenue for one year', function () {
+    park.add_dino(dinosaur)
+    park.add_dino(dinosaur2)
+    park.add_dino(dinosaur3)
+
+    const actual = park.total_yearly_revenue()
+    assert.strictEqual(actual, 273750)
+  });
 
 });
