@@ -52,4 +52,15 @@ Park.prototype.total_yearly_revenue = function () {
     return revenue;
 }
 
+Park.prototype.remove_all_of_species = function (species) {
+    dino_list = []
+
+    for (const dino of this.dino_collection){
+        if (dino.species !== species){
+            dino_list.push(dino)
+        }
+    }
+    this.dino_collection = dino_list
+}
+
 module.exports = Park;
