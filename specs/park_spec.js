@@ -106,4 +106,14 @@ describe('Park', function() {
     assert.deepStrictEqual(actual, [dinosaur2, dinosaur3])
   })
 
+  it('should be able to provide number of dinos for each diet type', function () {
+    park.add_dino(dinosaur)
+    park.add_dino(dinosaur)
+    park.add_dino(dinosaur2)
+    park.add_dino(dinosaur3)
+
+    const actual = park.find_diet_types()
+    assert.deepStrictEqual(actual, {'carnivore': 2, 'herbivore': 1, 'omnivore': 1})
+  })
+
 });

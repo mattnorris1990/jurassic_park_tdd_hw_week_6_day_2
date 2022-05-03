@@ -63,4 +63,23 @@ Park.prototype.remove_all_of_species = function (species) {
     this.dino_collection = dino_list
 }
 
+Park.prototype.find_diet_types = function () {
+    diets = {
+        'carnivore': 0,
+        'herbivore': 0,
+        'omnivore':0
+    }
+
+    for (const dino of this.dino_collection){
+        if (dino.diet === 'carnivore'){
+            diets.carnivore ++
+        } else if (dino.diet === 'herbivore') {
+            diets.herbivore ++
+        } else if (dino.diet === 'omnivore') {
+            diets.omnivore ++
+        }
+    }
+    return diets
+}
+
 module.exports = Park;
